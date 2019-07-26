@@ -71,11 +71,41 @@ app.post('/register-and-broadcast-node', function(req, res) {
 });
 
 app.post('/register-node', function(req, res) {
+    const newNodeUrl = req.body.newNodeUrl;
+    bitcoin.networkNodes.push(newNodeUrl);
+    const nodeNotAlreadyPresent = bitcoin.networkNodes.indexOf(newNodeUrl) == -1;
+    const notCurrentNode = bitcoin.currentNodeUrl !== newNodeUrl;
+
+    if (nodeNotAlreadyPresent && notCurrentNode) bitcoin.networkNodes.push(newNodeUrl);
+
+
+    res.json({ note: 'New node registered successfully.'});
 
 });
 
 app.post('/register-nodes-bulk', function(req, res) {
+    const allNetworkNodes = req.body.allNetworkNodes;
 
+    allNetworkNodes.forEach(networkNodeUrl => {
+        bitcoin.networkNodes.push(networkNodeUrl);
+        });
+    const nodeNotAlreadyPresent = bitcoin.networkNodes.indexOf(networkNodeUrl) == -1;
+    if(nodeNotAlreadyPresent)bitcoin.networkNodes.push(networkNodeUrl)
+        app.post('/register-nodes-bulk', function (req, res) {
+            const allNetworkNodes = req.body.allNetworkNodes;
+            allNetworkNodes.forEach(networkNodeUrl => {
+                const nodeNotAlreadyPresent =
+                    bitcoin.networkNodes.indexOf(networkNodeUrl) == -1;
+                    if (nodeNotAlreadyPresent && notCurrentNode)
+                        bitcoin.networkNodes.push(networkNodeUrl);
+            });
+        res.json({ note: 'Bulk registration successful.'});
+
+        });
+    
+
+    const notCurrentNode = bitcoin.currentNodeUrl !==networkNodeUrl
+    
 });
 
 app.listen(port, function(){
