@@ -9,7 +9,7 @@
 	```npm run node_5```
 
  ## How to use:
- Use [Postman](https://www.getpostman.com/) to interact with the API. To send a transaction, send a POST request to http://localhost:3001/transaction* using the following JSON:
+ Use [Postman](https://www.getpostman.com/) to interact with the API. To send a transaction, send a POST request to http://localhost:3001/transaction* using the following example JSON:
  
  *Port number can be whichever ports are specified in package.json
  
